@@ -91,6 +91,29 @@ export const useCalculator = () => {
     lasOperation.current = Operator.subtract
   }
 
+  const calculateResult = () => {
+    const num1 = Number( number )
+    const num2 = Number( prevNumber )
+
+    switch ( lasOperation.current ) {
+      case Operator.add:
+        setNumber( `${ num1 + num2 }` )
+        break;
+      case Operator.subtract:
+        setNumber( `${ num2 - num1 }` )
+        break;
+      case Operator.multiply:
+        setNumber( `${ num1 * num2 }` )
+        break;
+      case Operator.divide:
+        setNumber( `${ num2 / num1 }` )
+        break;
+      default:
+        throw new Error('Operation invalid')
+    }
+    setPrevNumber('0')
+  }
+
   return {
     number,
     prevNumber,
@@ -102,5 +125,6 @@ export const useCalculator = () => {
     addOperation,
     subtractOperation,
     multiplyOperation,
+    calculateResult
   }
 }
