@@ -1,8 +1,17 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
+
+enum Operator {
+  add,
+  subtract,
+  multiply,
+  divide,
+}
 
 export const useCalculator = () => {
 
   const [number, setNumber] = useState('0')
+  const [prevNumber, setPrevNumber] = useState('0')
+  const lasOperation = useRef<Operator>()
 
   const buildNumber = ( numberString: string ) => {
     
@@ -31,6 +40,7 @@ export const useCalculator = () => {
 
   const reset = () => {
     setNumber('0')
+    setPrevNumber('0')
   }
 
   const deleteLastNumber = () => {
@@ -50,11 +60,47 @@ export const useCalculator = () => {
     setNumber( '-' + number )
   }
 
+  const setLastNumber = () => {
+
+    if(number.endsWith('.')){
+      setPrevNumber( number.slice( 0, -1 ) )
+    } else {
+      setPrevNumber( number )
+    }
+
+    setNumber('0')
+  }
+
+  const divideOperation = () => {
+    setLastNumber()
+    lasOperation.current = Operator.divide
+  }
+
+  const multiplyOperation = () => {
+    setLastNumber()
+    lasOperation.current = Operator.multiply
+  }
+
+  const addOperation = () => {
+    setLastNumber()
+    lasOperation.current = Operator.add
+  }
+
+  const subtractOperation = () => {
+    setLastNumber()
+    lasOperation.current = Operator.subtract
+  }
+
   return {
     number,
+    prevNumber,
     buildNumber,
     reset,
     deleteLastNumber,
-    toggleSign
+    toggleSign,
+    divideOperation,
+    addOperation,
+    subtractOperation,
+    multiplyOperation,
   }
 }
