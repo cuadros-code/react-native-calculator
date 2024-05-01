@@ -37,6 +37,9 @@ export const useCalculator = () => {
     if( number.length == 1 ){
       return reset()
     } 
+    if( number.startsWith('-') && number.length === 2 ){
+      return reset()
+    }
     setNumber( number.slice( 0, number.length - 1 ) )
   }
 
