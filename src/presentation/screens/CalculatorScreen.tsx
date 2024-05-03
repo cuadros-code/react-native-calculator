@@ -20,7 +20,6 @@ export const CalculatorScreen = () => {
     calculateResult
   } = useCalculator()
 
-  console.log(formula)
 
   return (
     <View style={styles.calculaterContainer} >

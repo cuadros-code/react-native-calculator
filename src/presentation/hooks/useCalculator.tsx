@@ -23,7 +23,13 @@ export const useCalculator = () => {
       setFormula( number )
     }
   }, [number])
+
+  useEffect(() => {
+    const subResult = calculateSubResult().toString()
+    setPrevNumber(subResult)
+  }, [formula])
   
+
 
   const buildNumber = ( numberString: string ) => {
     
@@ -43,10 +49,8 @@ export const useCalculator = () => {
       if( numberString === '0' && !number.includes('.') ){
         return
       }
-
       return setNumber( number + numberString )
     }
-
     setNumber( number + numberString )
   }
 
@@ -75,7 +79,7 @@ export const useCalculator = () => {
   }
 
   const setLastNumber = () => {
-
+    calculateResult()
     if(number.endsWith('.')){
       setPrevNumber( number.slice( 0, -1 ) )
     } else {
