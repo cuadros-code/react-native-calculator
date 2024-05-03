@@ -8,6 +8,7 @@ export const CalculatorScreen = () => {
   const {
     number,
     prevNumber,
+    formula,
     buildNumber,
     reset,
     deleteLastNumber,
@@ -19,6 +20,8 @@ export const CalculatorScreen = () => {
     calculateResult
   } = useCalculator()
 
+  console.log(formula)
+
   return (
     <View style={styles.calculaterContainer} >
       
@@ -28,7 +31,7 @@ export const CalculatorScreen = () => {
           style={styles.mainResult}
           numberOfLines={1}
         >
-          { number }
+          { formula }
         </Text>
         <Text 
           adjustsFontSizeToFit
